@@ -42,6 +42,26 @@
     	max-height: 100%;
     	object-fit: contain;
 	}
+	.popup-table {
+    	width: 100%;
+    	border-collapse: collapse;
+    	font-size: 13px;
+	}
+	.popup-table th {
+    	text-align: left;
+    	font-weight: bold;
+    	padding: 4px 6px;
+    	white-space: nowrap;
+    	vertical-align: top;
+	}
+	.popup-table td {
+    	padding: 4px 6px;
+    	vertical-align: top;
+	}
+	.popup-table .image-row {
+    	padding-top: 8px;
+    	text-align: center;
+	}
         </style>
         <title></title>
     </head>
@@ -152,28 +172,33 @@
         layer_OpenStreetMap_0;
         map.addLayer(layer_OpenStreetMap_0);
         function pop_StreetviewImage_1(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Image_ID'] !== null ? autolinker.link(String(feature.properties['Image_ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Year'] !== null ? autolinker.link(String(feature.properties['Year']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Status'] !== null ? autolinker.link(String(feature.properties['Status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Relative_Path'] !== null ?
-    				'<div class="popup-image-box">' +
-        				'<img src="' + encodeURI(
-            					String(feature.properties['Relative_Path']).trim()
-        				) + '">' +
-    				'</div>' : '') + '</td>\
-                    </tr>\
-                </table>';
+            var popupContent = '<table class="popup-table">' +
+    		'<tr>' +
+        	'<th>Image ID</th>' +
+        	'<td>' + (feature.properties['Image_ID'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Name</th>' +
+        	'<td>' + (feature.properties['Name'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Year</th>' +
+        	'<td>' + (feature.properties['Year'] ?? '') + '</td>' +
+    		'</tr>' +
+       		'<tr>' +
+        	'<th>Status</th>' +
+        	'<td>' + (feature.properties['Status'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<td colspan="2" class="image-row">' +
+            	(feature.properties['Relative_Path']
+                ? '<div class="popup-image-box">' +
+                '<img src="' + encodeURI(feature.properties['Relative_Path']) + '">' +
+                '</div>'
+                : '') +
+        	'</td>' +
+    		'</tr>' +
+		'</table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
 				addClassToPopupIfMedia(content, e.popup);
@@ -218,28 +243,33 @@
         bounds_group.addLayer(layer_StreetviewImage_1);
         map.addLayer(layer_StreetviewImage_1);
         function pop_StillStanding_2(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Image_ID'] !== null ? autolinker.link(String(feature.properties['Image_ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Year'] !== null ? autolinker.link(String(feature.properties['Year']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Status'] !== null ? autolinker.link(String(feature.properties['Status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Relative_Path'] !== null ?
-    				'<div class="popup-image-box">' +
-        				'<img src="' + encodeURI(
-            					String(feature.properties['Relative_Path']).trim()
-        				) + '">' +
-    				'</div>' : '') + '</td>\
-                    </tr>\
-                </table>';
+            var popupContent = '<table class="popup-table">' +
+    		'<tr>' +
+        	'<th>Image ID</th>' +
+        	'<td>' + (feature.properties['Image_ID'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Name</th>' +
+        	'<td>' + (feature.properties['Name'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Year</th>' +
+        	'<td>' + (feature.properties['Year'] ?? '') + '</td>' +
+    		'</tr>' +
+       		'<tr>' +
+        	'<th>Status</th>' +
+        	'<td>' + (feature.properties['Status'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<td colspan="2" class="image-row">' +
+            	(feature.properties['Relative_Path']
+                ? '<div class="popup-image-box">' +
+                '<img src="' + encodeURI(feature.properties['Relative_Path']) + '">' +
+                '</div>'
+                : '') +
+        	'</td>' +
+    		'</tr>' +
+		'</table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
 				addClassToPopupIfMedia(content, e.popup);
@@ -284,28 +314,33 @@
         bounds_group.addLayer(layer_StillStanding_2);
         map.addLayer(layer_StillStanding_2);
         function pop_NewDevelopment_3(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Image_ID'] !== null ? autolinker.link(String(feature.properties['Image_ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Year'] !== null ? autolinker.link(String(feature.properties['Year']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Status'] !== null ? autolinker.link(String(feature.properties['Status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Relative_Path'] !== null ?
-    				'<div class="popup-image-box">' +
-        				'<img src="' + encodeURI(
-            					String(feature.properties['Relative_Path']).trim()
-        				) + '">' +
-    				'</div>' : '') + '</td>\
-                    </tr>\
-                </table>';
+            var popupContent = '<table class="popup-table">' +
+    		'<tr>' +
+        	'<th>Image ID</th>' +
+        	'<td>' + (feature.properties['Image_ID'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Name</th>' +
+        	'<td>' + (feature.properties['Name'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Year</th>' +
+        	'<td>' + (feature.properties['Year'] ?? '') + '</td>' +
+    		'</tr>' +
+       		'<tr>' +
+        	'<th>Status</th>' +
+        	'<td>' + (feature.properties['Status'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<td colspan="2" class="image-row">' +
+            	(feature.properties['Relative_Path']
+                ? '<div class="popup-image-box">' +
+                '<img src="' + encodeURI(feature.properties['Relative_Path']) + '">' +
+                '</div>'
+                : '') +
+        	'</td>' +
+    		'</tr>' +
+		'</table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
 				addClassToPopupIfMedia(content, e.popup);
@@ -350,28 +385,33 @@
         bounds_group.addLayer(layer_NewDevelopment_3);
         map.addLayer(layer_NewDevelopment_3);
         function pop_Abandoned_4(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Image_ID'] !== null ? autolinker.link(String(feature.properties['Image_ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Year'] !== null ? autolinker.link(String(feature.properties['Year']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Status'] !== null ? autolinker.link(String(feature.properties['Status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Relative_Path'] !== null ?
-    				'<div class="popup-image-box">' +
-        				'<img src="' + encodeURI(
-            					String(feature.properties['Relative_Path']).trim()
-        				) + '">' +
-    				'</div>' : '') + '</td>\
-                    </tr>\
-                </table>';
+            var popupContent = '<table class="popup-table">' +
+    		'<tr>' +
+        	'<th>Image ID</th>' +
+        	'<td>' + (feature.properties['Image_ID'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Name</th>' +
+        	'<td>' + (feature.properties['Name'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Year</th>' +
+        	'<td>' + (feature.properties['Year'] ?? '') + '</td>' +
+    		'</tr>' +
+       		'<tr>' +
+        	'<th>Status</th>' +
+        	'<td>' + (feature.properties['Status'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<td colspan="2" class="image-row">' +
+            	(feature.properties['Relative_Path']
+                ? '<div class="popup-image-box">' +
+                '<img src="' + encodeURI(feature.properties['Relative_Path']) + '">' +
+                '</div>'
+                : '') +
+        	'</td>' +
+    		'</tr>' +
+		'</table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
 				addClassToPopupIfMedia(content, e.popup);
@@ -416,28 +456,33 @@
         bounds_group.addLayer(layer_Abandoned_4);
         map.addLayer(layer_Abandoned_4);
         function pop_ReplacedwithParking_5(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Image_ID'] !== null ? autolinker.link(String(feature.properties['Image_ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Year'] !== null ? autolinker.link(String(feature.properties['Year']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Status'] !== null ? autolinker.link(String(feature.properties['Status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Relative_Path'] !== null ?
-    				'<div class="popup-image-box">' +
-        				'<img src="' + encodeURI(
-            					String(feature.properties['Relative_Path']).trim()
-        				) + '">' +
-    				'</div>' : '') + '</td>\
-                    </tr>\
-                </table>';
+            var popupContent = '<table class="popup-table">' +
+    		'<tr>' +
+        	'<th>Image ID</th>' +
+        	'<td>' + (feature.properties['Image_ID'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Name</th>' +
+        	'<td>' + (feature.properties['Name'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<th>Year</th>' +
+        	'<td>' + (feature.properties['Year'] ?? '') + '</td>' +
+    		'</tr>' +
+       		'<tr>' +
+        	'<th>Status</th>' +
+        	'<td>' + (feature.properties['Status'] ?? '') + '</td>' +
+    		'</tr>' +
+    		'<tr>' +
+        	'<td colspan="2" class="image-row">' +
+            	(feature.properties['Relative_Path']
+                ? '<div class="popup-image-box">' +
+                '<img src="' + encodeURI(feature.properties['Relative_Path']) + '">' +
+                '</div>'
+                : '') +
+        	'</td>' +
+    		'</tr>' +
+		'</table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
 				addClassToPopupIfMedia(content, e.popup);
